@@ -1,14 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+export const BASE_PATH = new InjectionToken<string>('basePath');
 
 @Injectable()
 export class TextService {
-  getMockText() {
-    return new Promise<string>(function (resolve) {
-      resolve('A year ago I was in the audience at a gathering of designers in San Francisco. ' +
-        'There were four designers on stage, and two of them worked for me. I was there to support them. ' +
-        'The topic of design responsibility came up, possibly brought up by one of my designers, I honestly don’t remember the details. ' +
-        'What I do remember is that at some point in the discussion I raised my hand and suggested, to this group of designers, ' +
-        'that modern design problems were very complex. And we ought to need a license to solve them.');
-    });
+
+  protected basePath = 'https://api.datamuse.com/words';
+
+  constructor(protected httpClient: HttpClient) {
+  }
+
+  public getSynonyms(value: string): Observable<any> {
+    return this.httpClient.get(`${this.basePath}/?rel_syn=${value}`);
   }
 }

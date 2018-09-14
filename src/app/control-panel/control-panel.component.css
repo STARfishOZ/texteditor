@@ -1,6 +1,5 @@
 :host {
   background-color: #fff;
-  height: 25px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -8,10 +7,24 @@
 }
 
 .format-actions {
-  width: 200px;
-  margin-right: 400px;
+  width: 50%;
+  margin: 0 auto;
 }
 
 button + button {
   margin-left: 5px;
+}
+
+.color-wrapper button {
+  height: 1em;
+  border-radius: 3px;
+  margin: 2px;
+  width: 1em;
+  border: 1px solid #CCC;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.color-wrapper {
+  display: inline-block;
 }
