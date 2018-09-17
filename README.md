@@ -1,4 +1,4 @@
-# I know there are now error handlers and etc., didn't had time
+# I know there are no error handlers and etc., didn't had time
 
 # AeFrontendTexteditorAngularSkeleton
 
