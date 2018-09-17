@@ -1,3 +1,5 @@
+#I know there are now error handlers and etc., didn't had time
+
 # AeFrontendTexteditorAngularSkeleton
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
