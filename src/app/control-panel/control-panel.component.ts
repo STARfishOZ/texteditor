@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 import { TextAction } from 'src/assets/text-actions.enums';
@@ -7,21 +7,27 @@ import { TextService } from 'src/app/text-service/text.service';
 @Component({
   selector: 'app-control-panel',
   templateUrl: './control-panel.component.html',
-  styleUrls: ['./control-panel.component.css']
-
+  styleUrls: ['./control-panel.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlPanelComponent implements OnInit {
 
-  constructor(@Inject(DOCUMENT) private document,
-              private textService: TextService) {
+  public constructor(@Inject(DOCUMENT) private document,
+                     private textService: TextService) {
   }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
   public getSynonyms(): void {
-    const selectedText = window.getSelection().getRangeAt(0).toString();
-    this.textService.getSynonyms(selectedText).subscribe((result: any) => {
+    const selectedText = window.getSelection().getRangeAt(0).toString().trim();
+
+    console.log();
+
+    this.textService.getSingleSynonym(selectedText)
+      .subscribe((result: any) => {
+        const arraySyn = result.map(item => item.word);
+        this.document.execCommand('insertText', false, arraySyn[0])
       alert(`Synonms: ${result.map(item => item.word).join(', ')}`);
     });
   }

@@ -12,7 +12,11 @@ export class TextService {
   constructor(protected httpClient: HttpClient) {
   }
 
-  public getSynonyms(value: string): Observable<any> {
+  public getSynonymsList(value: string): Observable<any> {
     return this.httpClient.get(`${this.basePath}/?rel_syn=${value}`);
+  }
+
+  public getSingleSynonym(value: string): Observable<any> {
+    return this.httpClient.get(`${this.basePath}?rel_syn=${value}&max=1`);
   }
 }
