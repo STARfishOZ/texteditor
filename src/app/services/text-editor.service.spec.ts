@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { TextService } from './text.service';
+import { TextService } from './text-editor.service';
 
-describe('TextService', () => {
+describe('DataMuseApi', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [TextService]
