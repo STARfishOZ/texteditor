@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { TextService } from './text-editor.service';
 
-describe('DataMuseApi', () => {
+describe('RandomTextApi', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [TextService]

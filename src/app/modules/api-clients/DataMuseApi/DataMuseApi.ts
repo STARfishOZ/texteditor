@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ISynonymData } from '../interfaces/ISynonymData';
+import { ISynonymData } from 'src/app/interfaces/ISynonymData';
 
 @Injectable()
 export class DataMuseApi {

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -6,28 +7,26 @@ import { NgModule } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from 'src/app/app.component';
-import { DataMuseApi } from 'src/app/api-clients/DataMuseApi';
-import { TextEditorService } from 'src/app/services/text-editor.service';
-import * as components from 'src/app/components';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HeaderComponent } from 'src/app/layouts/header/header.component';
+import * as modules from 'src/app/modules';
 
 @NgModule({
   declarations: [
     AppComponent,
-    components.FileComponent,
-    components.ControlPanelComponent,
-    components.HeaderComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    modules.ApiClientsModule,
+    modules.TextEditorModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
+      progressBar: true
     }),
   ],
-  providers: [ DataMuseApi, TextEditorService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

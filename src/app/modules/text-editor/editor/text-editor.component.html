@@ -1,0 +1,18 @@
+<div class="format-actions">
+  <editor-action-btn [actionType]="'bold'"></editor-action-btn>
+  <editor-action-btn [actionType]="'italic'"></editor-action-btn>
+  <editor-action-btn [actionType]="'underline'"></editor-action-btn>
+  <editor-action-btn [actionType]="'synonym'"
+                     (click)="getSynonyms()"></editor-action-btn>
+
+  <editor-action-btn [actionType]="'h1'"></editor-action-btn>
+  <editor-action-btn [actionType]="'h2'"></editor-action-btn>
+  <editor-action-btn [actionType]="'p'"></editor-action-btn>
+  <editor-action-btn [actionType]="'indent'"></editor-action-btn>
+  <editor-action-btn [actionType]="'outdent'"></editor-action-btn>
+  <editor-action-btn [actionType]="'insertimage'"></editor-action-btn>
+</div>
+<div class="file"
+     contenteditable>
+  {{ text$ | async | stripHtml }}
+</div>

@@ -1,9 +1,9 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { ControlPanelComponent } from './components/control-panel/control-panel.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './modules/common/header/header.component';
 import { FileComponent } from './components/file/file.component';
-import { TextService } from './services/text-editor.service';
+import { TextService } from './modules/text-editor/services/text-editor.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

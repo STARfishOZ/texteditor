@@ -1,4 +1,13 @@
 :host {
+  background-color: #f1f0f0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+}
+
+:host {
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -27,4 +36,13 @@ button + button {
 
 .color-wrapper {
   display: inline-block;
+}
+
+
+.file {
+  width: 600px;
+  flex-grow: 1;
+  background-color: #fff;
+  border: 1px solid #e4dede;
+  padding: 20px;
 }
