@@ -1,20 +1,32 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { ControlPanelComponent } from './components/control-panel/control-panel.component';
-import { HeaderComponent } from './modules/common/header/header.component';
-import { FileComponent } from './components/file/file.component';
-import { TextService } from './modules/text-editor/services/text-editor.service';
+
+import { ToastrModule } from 'ngx-toastr';
+
+import { AppComponent } from 'src/app/app.component';
+import { HeaderComponent } from 'src/app/layouts/header/header.component';
+import * as modules from 'src/app/modules';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        ControlPanelComponent,
         HeaderComponent,
-        FileComponent
       ],
-      providers: [TextService]
+      imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        modules.ApiClientsModule,
+        modules.TextEditorModule,
+        ToastrModule.forRoot()
+      ],
+      providers: []
     }).compileComponents();
   }));
   it('should create the app', async(() => {
