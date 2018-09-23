@@ -11,6 +11,13 @@
   <editor-action-btn [actionType]="'indent'"></editor-action-btn>
   <editor-action-btn [actionType]="'outdent'"></editor-action-btn>
   <editor-action-btn [actionType]="'insertimage'"></editor-action-btn>
+
+  <span class="color-pallet-wrapper">
+    <span>Colors</span>
+    <span class="pallet">
+      <ng-template #colorPalletContainer></ng-template>
+    </span>
+  </span>
 </div>
 <div class="file"
      contenteditable>

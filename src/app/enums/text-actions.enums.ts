@@ -6,5 +6,6 @@ export enum TextAction {
   HEADING2 = 'h2',
   PARAGRAPH = 'p',
   IMAGE = 'insertimage',
-  SYNONYM = 'cut'
+  SYNONYM = 'cut',
+  FORECOLOR = 'forecolor'
 }

@@ -1,6 +1,12 @@
-import {ChangeDetectionStrategy, Component, Inject, Input} from '@angular/core';
-import {TextAction} from '../../../enums/text-actions.enums';
-import {DOCUMENT} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input
+} from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+
+import { TextAction } from 'src/app/enums/text-actions.enums';
 
 @Component({
   selector: 'editor-action-btn',

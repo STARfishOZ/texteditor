@@ -5,7 +5,7 @@ import {catchError, map} from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 import { DataMuseApi, RandomTextApi } from 'src/app/modules/api-clients';
-import { ToastTitlesEnums } from 'src/app/enums/toast.enums';
+import { ToastTitles } from 'src/app/enums/toast.enums';
 
 @Injectable()
 export class TextEditorService {
@@ -28,7 +28,7 @@ export class TextEditorService {
       .pipe(
         map(data => data.map(item => item.word),
         catchError((error) => {
-          this.toastService.error(`dataMuseApi ${error.name}`, ToastTitlesEnums.ERROR);
+          this.toastService.error(`dataMuseApi ${error.name}`, ToastTitles.ERROR);
           return of('Something went wrong!');
         })
       ));
@@ -42,7 +42,7 @@ export class TextEditorService {
       .pipe(
         map(data => data.text_out),
         catchError((error) => {
-          this.toastService.error(`randomTextApi ${error.name}`, ToastTitlesEnums.ERROR);
+          this.toastService.error(`randomTextApi ${error.name}`, ToastTitles.ERROR);
           return of('Something went wrong!');
       }));
   }

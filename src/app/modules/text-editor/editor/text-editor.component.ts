@@ -1,44 +1,67 @@
 import {
-  ChangeDetectionStrategy,
   Component,
+  ComponentFactoryResolver,
+  ComponentRef,
   Inject,
   OnDestroy,
-  OnInit
+  OnInit,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
+import { Observable, Subscription } from 'rxjs';
 
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { ToastrService } from 'ngx-toastr';
 
+import { ColorPalletComponent } from 'src/app/modules/text-editor/color-pallet/color-pallet.component';
 import { TextEditorService } from 'src/app/modules/text-editor/services/text-editor.service';
-import { ToastTitlesEnums } from 'src/app/enums/toast.enums';
+import { ToastTitles } from 'src/app/enums/toast.enums';
 
 @Component({
   selector: 'text-editor',
   templateUrl: './text-editor.component.html',
-  styleUrls: ['./text-editor.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./text-editor.component.css']
 })
+@AutoUnsubscribe()
 export class TextEditorComponent implements OnInit, OnDestroy {
+
+  /**
+   * Reference to container where colors should be attached
+   */
+  @ViewChild('colorPalletContainer', { read: ViewContainerRef }) private colorPalletContainer;
 
   /**
    * Property to stream the text from service
    */
   public text$: Observable<string>;
 
+  /**
+   * Reference to ColorPalletComponent which will be generated
+   */
+  private componentRefs: ComponentRef<ColorPalletComponent>[] = [];
+
+  /**
+   * Set of available colors for color pallet usage
+   */
+  private readonly colorsSet = ['#000000', '#cccccc', 'green', 'red'];
+
   private synonymsData$: Subscription;
 
   public constructor(@Inject(DOCUMENT) private document,
                      private textEditorService: TextEditorService,
-                     private toastService: ToastrService) {
+                     private toastService: ToastrService,
+                     private componentResolver: ComponentFactoryResolver) {
   }
 
   public ngOnInit(): void {
     this.text$ = this.textEditorService.getRandomText();
+    this.createColorPallet();
   }
 
+  // for @AutoUnsubscribe, If you work with AOT this method must be present, even if empty!
   public ngOnDestroy(): void {
-    // for @AutoUnsubscribe, If you work with AOT this method must be present, even if empty!
+    this.removeColorPallet();
   }
 
   /**
@@ -53,7 +76,7 @@ export class TextEditorComponent implements OnInit, OnDestroy {
     const selectedText = window.getSelection().getRangeAt(0).toString();
 
     if (selectedText.split(' ').length > 1 || selectedText === '') {
-      this.toastService.error(`Select at least one word not more. Please try again.`, ToastTitlesEnums.ERROR);
+      this.toastService.error(`Select at least one word not more. Please try again.`, ToastTitles.ERROR);
       return;
     }
 
@@ -63,12 +86,12 @@ export class TextEditorComponent implements OnInit, OnDestroy {
       .subscribe((result: string[]) => {
         if (!result.length) {
           this.toastService.info(`Synonyms for word ${selectedTrimmedText} haven't been found. Please try again.`,
-            ToastTitlesEnums.INFO);
+            ToastTitles.INFO);
 
           return;
         }
 
-        this.toastService.success(`Synonyms for word ${selectedTrimmedText} found: ${result.join(', ')}`, ToastTitlesEnums.SUCCESS);
+        this.toastService.success(`Synonyms for word ${selectedTrimmedText} found: ${result.join(', ')}`, ToastTitles.SUCCESS);
         this.useSynonymInsteadOrigin(result[0]);
       });
   }
@@ -80,9 +103,26 @@ export class TextEditorComponent implements OnInit, OnDestroy {
     this.document.execCommand('insertText', false, synonym);
   }
 
-  // Didnt had time to make it dynamic
-  public changeFontColor(value: string): void {
-    this.document.execCommand('forecolor', false, value);
+  /**
+   * Adding colorPalletComponent dynamically
+   */
+  private createColorPallet(): void {
+    const factory = this.componentResolver.resolveComponentFactory(ColorPalletComponent);
+
+    this.colorPalletContainer.clear();
+
+    this.colorsSet.forEach((color, index) => {
+      this.componentRefs.push(this.colorPalletContainer.createComponent(factory));
+      this.componentRefs[index].instance.color = color;
+    });
   }
 
+  /**
+   * Remove dynamically added components
+   */
+  private removeColorPallet(): void {
+    this.componentRefs.forEach((componentRef) => {
+      componentRef.destroy();
+    });
+  }
 }
