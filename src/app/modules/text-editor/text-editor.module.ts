@@ -10,12 +10,12 @@ import * as pipes from 'src/app/pipes';
   declarations: [
     textEditorPack.EditorActionButtonComponent,
     textEditorPack.TextEditorComponent,
-    textEditorPack.ColorPalletComponent,
+    textEditorPack.ColorPaletteComponent,
     pipes.StripHtmlPipe
   ],
   providers: [ TextEditorService ],
   exports: [ textEditorPack.TextEditorComponent ],
-  entryComponents: [ textEditorPack.ColorPalletComponent ]
+  entryComponents: [ textEditorPack.ColorPaletteComponent ]
 })
 export class TextEditorModule {
 }

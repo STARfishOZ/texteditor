@@ -1,0 +1,62 @@
+:host {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  margin: 0 auto;
+  width: 40%;
+}
+
+.color-palette-wrapper {
+  position: relative;
+
+  #palette-label {
+    background-color: #ffa500;
+    border: 2px solid #ffa500;
+    color: #fff;
+    margin: 0 5px 5px 0;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-width 0.3s;
+    outline: none;
+    position: relative;
+    z-index: 1;
+
+    &:hover {
+    }
+  }
+
+  &:hover {
+
+    #palette-label {
+      position: relative;
+      background-color: #f1f0f0;
+      border-width: 0;
+      color: #ffa500;
+
+    }
+    .palette {
+      right: -99%;
+    }
+  }
+
+  .palette {
+    position: absolute;
+    top: -1px;
+    right: 0;
+    width: 100%;
+    height: 21px;
+    border-left: none;
+    transition: right 0.3s;
+    z-index: 0;
+  }
+}
+
+.editor-textarea {
+  flex-grow: 1;
+  background-color: #fff;
+  border: 1px solid #e4dede;
+  padding: 20px;
+  outline: none
+}

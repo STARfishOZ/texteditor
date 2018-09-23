@@ -6,15 +6,16 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
+import { IColorPaletteComponent } from 'src/app/interfaces/ITextEditor';
 import { TextAction } from 'src/app/enums';
 
 @Component({
-  selector: 'color-pallet',
-  templateUrl: './color-pallet.component.html',
-  styleUrls: ['./color-pallet.component.css'],
+  selector: 'color-palette',
+  templateUrl: './color-palette.component.html',
+  styleUrls: ['./color-palette.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColorPalletComponent {
+export class ColorPaletteComponent implements IColorPaletteComponent {
 
   @Input() public color: string;
 

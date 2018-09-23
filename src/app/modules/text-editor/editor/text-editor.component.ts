@@ -14,22 +14,23 @@ import { Observable, Subscription } from 'rxjs';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { ToastrService } from 'ngx-toastr';
 
-import { ColorPalletComponent } from 'src/app/modules/text-editor/color-pallet/color-pallet.component';
+import { ColorPaletteComponent } from 'src/app/modules/text-editor/color-palette/color-palette.component';
+import { ITextEditor } from 'src/app/interfaces/ITextEditor';
 import { TextEditorService } from 'src/app/modules/text-editor/services/text-editor.service';
 import { ToastTitles } from 'src/app/enums/toast.enums';
 
 @Component({
   selector: 'text-editor',
   templateUrl: './text-editor.component.html',
-  styleUrls: ['./text-editor.component.css']
+  styleUrls: ['./text-editor.component.scss']
 })
 @AutoUnsubscribe()
-export class TextEditorComponent implements OnInit, OnDestroy {
+export class TextEditorComponent implements OnInit, OnDestroy, ITextEditor {
 
   /**
    * Reference to container where colors should be attached
    */
-  @ViewChild('colorPalletContainer', { read: ViewContainerRef }) private colorPalletContainer;
+  @ViewChild('colorPaletteContainer', { read: ViewContainerRef }) private colorPaletteContainer;
 
   /**
    * Property to stream the text from service
@@ -37,12 +38,12 @@ export class TextEditorComponent implements OnInit, OnDestroy {
   public text$: Observable<string>;
 
   /**
-   * Reference to ColorPalletComponent which will be generated
+   * Reference to ColorPaletteComponent which will be generated
    */
-  private componentRefs: ComponentRef<ColorPalletComponent>[] = [];
+  private componentRefs: ComponentRef<ColorPaletteComponent>[] = [];
 
   /**
-   * Set of available colors for color pallet usage
+   * Set of available colors for color palette usage
    */
   private readonly colorsSet = ['#000000', '#cccccc', 'green', 'red'];
 
@@ -56,12 +57,12 @@ export class TextEditorComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.text$ = this.textEditorService.getRandomText();
-    this.createColorPallet();
+    this.createColorPalette();
   }
 
   // for @AutoUnsubscribe, If you work with AOT this method must be present, even if empty!
   public ngOnDestroy(): void {
-    this.removeColorPallet();
+    this.removeColorPalette();
   }
 
   /**
@@ -104,15 +105,15 @@ export class TextEditorComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Adding colorPalletComponent dynamically
+   * Adding colorPaletteComponent dynamically
    */
-  private createColorPallet(): void {
-    const factory = this.componentResolver.resolveComponentFactory(ColorPalletComponent);
+  private createColorPalette(): void {
+    const factory = this.componentResolver.resolveComponentFactory(ColorPaletteComponent);
 
-    this.colorPalletContainer.clear();
+    this.colorPaletteContainer.clear();
 
     this.colorsSet.forEach((color, index) => {
-      this.componentRefs.push(this.colorPalletContainer.createComponent(factory));
+      this.componentRefs.push(this.colorPaletteContainer.createComponent(factory));
       this.componentRefs[index].instance.color = color;
     });
   }
@@ -120,7 +121,7 @@ export class TextEditorComponent implements OnInit, OnDestroy {
   /**
    * Remove dynamically added components
    */
-  private removeColorPallet(): void {
+  private removeColorPalette(): void {
     this.componentRefs.forEach((componentRef) => {
       componentRef.destroy();
     });

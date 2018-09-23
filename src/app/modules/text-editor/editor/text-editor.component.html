@@ -4,7 +4,6 @@
   <editor-action-btn [actionType]="'underline'"></editor-action-btn>
   <editor-action-btn [actionType]="'synonym'"
                      (click)="getSynonyms()"></editor-action-btn>
-
   <editor-action-btn [actionType]="'h1'"></editor-action-btn>
   <editor-action-btn [actionType]="'h2'"></editor-action-btn>
   <editor-action-btn [actionType]="'p'"></editor-action-btn>
@@ -12,14 +11,14 @@
   <editor-action-btn [actionType]="'outdent'"></editor-action-btn>
   <editor-action-btn [actionType]="'insertimage'"></editor-action-btn>
 
-  <span class="color-pallet-wrapper">
-    <span>Colors</span>
-    <span class="pallet">
-      <ng-template #colorPalletContainer></ng-template>
+  <span class="color-palette-wrapper">
+    <button id="palette-label">Colors</button>
+    <span class="palette">
+      <ng-template #colorPaletteContainer></ng-template>
     </span>
   </span>
 </div>
-<div class="file"
+<div class="editor-textarea"
      contenteditable>
   {{ text$ | async | stripHtml }}
 </div>

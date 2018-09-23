@@ -1,0 +1,15 @@
+button {
+  background-color: #ffa500;
+  border: 2px solid #ffa500;
+  color: #fff;
+  margin: 0 5px 5px 0;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  outline: none;
+
+  &:hover {
+    background-color: #f1f0f0;
+    color: #ffa500;
+  }
+}

@@ -5,10 +5,11 @@ import {catchError, map} from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 import { DataMuseApi, RandomTextApi } from 'src/app/modules/api-clients';
+import { ITextEditorService } from 'src/app/interfaces/ITextEditor';
 import { ToastTitles } from 'src/app/enums/toast.enums';
 
 @Injectable()
-export class TextEditorService {
+export class TextEditorService implements ITextEditorService {
 
   /**
    * Default value for amount of words to deliver

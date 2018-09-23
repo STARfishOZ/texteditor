@@ -6,15 +6,16 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
+import { IEditorActionButtonComponent } from 'src/app/interfaces/ITextEditor';
 import { TextAction } from 'src/app/enums/text-actions.enums';
 
 @Component({
   selector: 'editor-action-btn',
   templateUrl: './action-btn.component.html',
-  styleUrls: ['./action-btn.component.css'],
+  styleUrls: ['./action-btn.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditorActionButtonComponent {
+export class EditorActionButtonComponent implements IEditorActionButtonComponent {
 
   /**
    * Type of editing action for button
