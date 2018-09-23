@@ -1,5 +1,6 @@
-import { TextAction } from '../enums';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { TextAction } from 'src/app/enums';
 
 export interface IEditorActionButtonComponent {
   actionType: TextAction;

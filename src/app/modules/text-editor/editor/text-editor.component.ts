@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ColorPaletteComponent } from 'src/app/modules/text-editor/color-palette/color-palette.component';
 import { ITextEditor } from 'src/app/interfaces/ITextEditor';
 import { TextEditorService } from 'src/app/modules/text-editor/services/text-editor.service';
-import { ToastTitles } from 'src/app/enums/toast.enums';
+import { ToastTitles, TextAction } from 'src/app/enums';
 
 @Component({
   selector: 'text-editor',
@@ -31,6 +31,8 @@ export class TextEditorComponent implements OnInit, OnDestroy, ITextEditor {
    * Reference to container where colors should be attached
    */
   @ViewChild('colorPaletteContainer', { read: ViewContainerRef }) private colorPaletteContainer;
+
+  public editorCommandsSet = TextAction;
 
   /**
    * Property to stream the text from service

@@ -1,15 +1,15 @@
 <div class="format-actions">
-  <editor-action-btn [actionType]="'bold'"></editor-action-btn>
-  <editor-action-btn [actionType]="'italic'"></editor-action-btn>
-  <editor-action-btn [actionType]="'underline'"></editor-action-btn>
-  <editor-action-btn [actionType]="'synonym'"
+  <editor-action-btn [actionType]="editorCommandsSet.BOLD"></editor-action-btn>
+  <editor-action-btn [actionType]="editorCommandsSet.ITALIC"></editor-action-btn>
+  <editor-action-btn [actionType]="editorCommandsSet.UNDERLINE"></editor-action-btn>
+  <editor-action-btn [actionType]="editorCommandsSet.SYNONYM"
                      (click)="getSynonyms()"></editor-action-btn>
-  <editor-action-btn [actionType]="'h1'"></editor-action-btn>
-  <editor-action-btn [actionType]="'h2'"></editor-action-btn>
-  <editor-action-btn [actionType]="'p'"></editor-action-btn>
-  <editor-action-btn [actionType]="'indent'"></editor-action-btn>
-  <editor-action-btn [actionType]="'outdent'"></editor-action-btn>
-  <editor-action-btn [actionType]="'insertimage'"></editor-action-btn>
+  <editor-action-btn [actionType]="editorCommandsSet.HEADING1"></editor-action-btn>
+  <editor-action-btn [actionType]="editorCommandsSet.HEADING2"></editor-action-btn>
+  <editor-action-btn [actionType]="editorCommandsSet.PARAGRAPH"></editor-action-btn>
+  <editor-action-btn [actionType]="editorCommandsSet.INDENT"></editor-action-btn>
+  <editor-action-btn [actionType]="editorCommandsSet.OUTDENT"></editor-action-btn>
+  <editor-action-btn [actionType]="editorCommandsSet.IMAGE"></editor-action-btn>
 
   <span class="color-palette-wrapper">
     <button id="palette-label">Colors</button>
