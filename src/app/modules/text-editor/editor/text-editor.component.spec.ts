@@ -1,15 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import * as components from 'src/app/modules/text-editor';
-import * as pipes from 'src/app/pipes';
-import { TextEditorService } from '../services/text-editor.service';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { of } from 'rxjs';
+
 import { ToastrService } from 'ngx-toastr';
-import {of} from 'rxjs';
-import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
-import * as textEditorPack from '../index';
+
+import { TextEditorService } from 'src/app/modules/text-editor/services/text-editor.service';
+import * as textEditorPack from 'src/app/modules/text-editor';
+import * as pipes from 'src/app/pipes';
 
 describe('TextEditorComponent', () => {
-  let component: components.TextEditorComponent;
-  let fixture: ComponentFixture<components.TextEditorComponent>;
+  let component: textEditorPack.TextEditorComponent;
+  let fixture: ComponentFixture<textEditorPack.TextEditorComponent>;
   let toastrServiceSpy: jasmine.SpyObj<ToastrService>;
   let textEditorServiceSpy: jasmine.SpyObj<TextEditorService>;
 
@@ -20,9 +21,9 @@ describe('TextEditorComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [
-        components.TextEditorComponent,
-        components.EditorActionButtonComponent,
-        components.ColorPaletteComponent,
+        textEditorPack.TextEditorComponent,
+        textEditorPack.EditorActionButtonComponent,
+        textEditorPack.ColorPaletteComponent,
         pipes.StripHtmlPipe
       ],
       providers: [
@@ -43,7 +44,7 @@ describe('TextEditorComponent', () => {
       }
     }).compileComponents()
       .then(() => {
-        fixture = TestBed.createComponent(components.TextEditorComponent);
+        fixture = TestBed.createComponent(textEditorPack.TextEditorComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
       });

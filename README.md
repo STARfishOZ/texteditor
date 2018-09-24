@@ -1,6 +1,7 @@
-# I know there are no error handlers and etc., didn't had time
+# Note
 
-# AeFrontendTexteditorAngularSkeleton
+I came to conclusion that this application should be done from the point of a big application which is scalable.
+That's why I used module approach.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
