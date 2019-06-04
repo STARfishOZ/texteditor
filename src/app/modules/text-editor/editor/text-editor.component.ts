@@ -9,7 +9,8 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import {Observable, Subject, Subscription} from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { tap, switchMap, filter } from 'rxjs/operators';
 
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { ToastrService } from 'ngx-toastr';
@@ -18,7 +19,6 @@ import { ColorPaletteComponent } from 'src/app/modules/text-editor/color-palette
 import { ITextEditor } from 'src/app/interfaces/ITextEditor';
 import { TextEditorService } from 'src/app/modules/text-editor/services/text-editor.service';
 import { ToastTitles, TextAction } from 'src/app/enums';
-import { switchMap, filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'text-editor',
@@ -99,11 +99,10 @@ export class TextEditorComponent implements OnInit, OnDestroy, ITextEditor {
 
     this.synonymsData$ =  this.synonymSubject$
       .pipe(
-        tap(value => valueForSynonym = value),
         filter(value => !!value),
+        tap(value => valueForSynonym = value),
         switchMap(value => this.textEditorService.getSynonymsListForSelection(value)),
       )
-
       .subscribe((result: string[]) => {
         if (!result.length) {
           this.toastService.info(`Synonyms for word ${valueForSynonym} haven't been found. Please try again.`,
