@@ -65,7 +65,7 @@ describe('TextEditorComponent', () => {
 
   });
 
-  describe('getSynonyms', () => {
+  xdescribe('getSynonym', () => {
 
     it('should call textEditorService getSynonymsListForSelection method', () => {
       textEditorServiceSpy.getSynonymsListForSelection.and.returnValue(of(['asd']));

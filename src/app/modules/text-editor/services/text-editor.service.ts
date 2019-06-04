@@ -39,7 +39,7 @@ export class TextEditorService implements ITextEditorService {
    * return Observable with text
    */
   public getRandomText(): Observable<string> {
-    return this.randomTextApiService.getRandomText()
+      return this.randomTextApiService.getRandomText()
       .pipe(
         map(data => data.text_out),
         catchError((error) => {
