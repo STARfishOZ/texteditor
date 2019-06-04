@@ -103,6 +103,7 @@ export class TextEditorComponent implements OnInit, OnDestroy, ITextEditor {
         filter(value => !!value),
         switchMap(value => this.textEditorService.getSynonymsListForSelection(value)),
       )
+
       .subscribe((result: string[]) => {
         if (!result.length) {
           this.toastService.info(`Synonyms for word ${valueForSynonym} haven't been found. Please try again.`,
