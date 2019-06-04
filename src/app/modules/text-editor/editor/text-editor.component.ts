@@ -9,7 +9,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Observable, Subscription } from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +18,7 @@ import { ColorPaletteComponent } from 'src/app/modules/text-editor/color-palette
 import { ITextEditor } from 'src/app/interfaces/ITextEditor';
 import { TextEditorService } from 'src/app/modules/text-editor/services/text-editor.service';
 import { ToastTitles, TextAction } from 'src/app/enums';
+import { switchMap, filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'text-editor',
@@ -38,6 +39,8 @@ export class TextEditorComponent implements OnInit, OnDestroy, ITextEditor {
    * Property to stream the text from service
    */
   public text$: Observable<string>;
+
+  private synonymSubject$ = new Subject<string>();
 
   /**
    * Reference to ColorPaletteComponent which will be generated
@@ -60,6 +63,7 @@ export class TextEditorComponent implements OnInit, OnDestroy, ITextEditor {
   public ngOnInit(): void {
     this.text$ = this.textEditorService.getRandomText();
     this.createColorPalette();
+    this.fetchSynonyms();
   }
 
   // for @AutoUnsubscribe, If you work with AOT this method must be present, even if empty!
@@ -67,10 +71,11 @@ export class TextEditorComponent implements OnInit, OnDestroy, ITextEditor {
     this.removeColorPalette();
   }
 
+
   /**
-   * Providing list of available synonyms and replacing word with one of them
+   * Sending selected word as subject to use further
    */
-  public getSynonyms(): void {
+  public getSynonym(): void {
     // in case selection is empty and synonym button was clicked before working with editor
     if (!window.getSelection().rangeCount) {
       window.getSelection().addRange(this.document.createRange());
@@ -83,18 +88,30 @@ export class TextEditorComponent implements OnInit, OnDestroy, ITextEditor {
       return;
     }
 
-    const selectedTrimmedText = selectedText.trim();
+    this.synonymSubject$.next(selectedText.trim());
+  }
 
-    this.synonymsData$ = this.textEditorService.getSynonymsListForSelection(selectedTrimmedText)
+  /**
+   * Providing list of available synonyms and replacing word with one of them
+   */
+  private fetchSynonyms(): void {
+    let valueForSynonym;
+
+    this.synonymsData$ =  this.synonymSubject$
+      .pipe(
+        tap(value => valueForSynonym = value),
+        filter(value => !!value),
+        switchMap(value => this.textEditorService.getSynonymsListForSelection(value)),
+      )
       .subscribe((result: string[]) => {
         if (!result.length) {
-          this.toastService.info(`Synonyms for word ${selectedTrimmedText} haven't been found. Please try again.`,
+          this.toastService.info(`Synonyms for word ${valueForSynonym} haven't been found. Please try again.`,
             ToastTitles.INFO);
 
           return;
         }
 
-        this.toastService.success(`Synonyms for word ${selectedTrimmedText} found: ${result.join(', ')}`, ToastTitles.SUCCESS);
+        this.toastService.success(`Synonyms for word ${valueForSynonym} found: ${result.join(', ')}`, ToastTitles.SUCCESS);
         this.useSynonymInsteadOrigin(result[0]);
       });
   }

@@ -14,7 +14,7 @@ export interface IColorPaletteComponent {
 
 export interface ITextEditor {
   text$: Observable<string>;
-  getSynonyms(): void;
+  getSynonym(): void;
 }
 
 export interface ITextEditorService {
